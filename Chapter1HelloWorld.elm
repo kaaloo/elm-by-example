@@ -13,6 +13,7 @@ The first example will display the “Hello World” message. The program
 — *[HelloWorld1.elm](HelloWorld1.elm)* — is presented below.
 
 % HelloWorld1.elm
+      import Text (..)
       main = plainText "Hello World"
 
 The meaning of an Elm program is defined by the `main` function. Every
@@ -30,7 +31,7 @@ does not require enclosing function arguments in parenthesis.
 Before the program can be run, it needs to be compiled. The following
 command compiles it:
 
-      elm HelloWorld1.elm
+      elm-make HelloWorld1.elm --output=HelloWorld1.html
 
 The compiler builds the *HelloWorld.html* file in the *build*
 folder. You can now open that file using your favorite browser. Click
