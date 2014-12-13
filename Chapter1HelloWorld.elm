@@ -43,25 +43,26 @@ program, presented below, shows one way styling the message in a
 custom way. You can see it in action [here](HelloWorld2.html).
 
 % HelloWorld2.elm
-      import Text
+    import Color (..)
+    import Graphics.Element (..)
+    import Text
 
-
-      main : Element
-      main =
-          Text.toText "Hello World"
-              |> Text.color blue
-              |> Text.italic
-              |> Text.bold
-              |> Text.height 60
-              |> Text.leftAligned
+    main : Element
+    main =
+        Text.fromString "Hello World"
+            |> Text.color blue
+            |> Text.italic
+            |> Text.bold
+            |> Text.height 60
+            |> Text.leftAligned
 
 In order to style to our message, we use functions from the `Text`
-module from Elm’s standard library. The first line: `import Text`
+module from Elm’s standard library. The third line: `import Text`
 imports the `Text` module, allowing us to reference its functions in
 our program. We reference a function by prefixing the function name with
 the module name and the dot.
 
-The second line is the `main` function type declaration (or in other
+The fourth line is the `main` function type declaration (or in other
 words, its signature). Signatures are optional and we did not have it
 in our first program. In fact, the first versions of Elm did not even
 provide a way of declaring function signatures. It is however often a
@@ -81,17 +82,24 @@ declaration to `main : String` in our program (such a declaration
 implies that the result of the `main` function is a string), the
 compiler would complain:
 
-      $ elm HelloWorld2.elm
-      [1 of 1] Compiling Main                ( HelloWorld2.elm )
-      Type error between lines 6 and 11:
-              (((((Text.toText "Hello World") |> (Text.color blue)) |>
-                 Text.italic) |>
-                Text.bold) |>
-               (Text.height 60)) |>
-              Text.leftAligned
+      $ elm-make HelloWorld2.elm  --output=HelloWorld2.html
 
-         Expected Type: Graphics.Element.Element
-           Actual Type: String
+      Error in HelloWorld2.elm:
+
+      Type mismatch between the following types between lines 7 and 12:
+
+          Graphics.Element.Element
+
+          String
+
+        It is related to the following expression:
+
+            (((((Text.fromString "Hello World") |> (Text.color blue))
+                 |> Text.italic)
+                |> Text.bold)
+               |> (Text.height 60))
+              |> Text.leftAligned
+
 
 The `main` function body contains a set of expressions separated with
 the `|>` operators. What are they? They are in fact a way of function
@@ -111,15 +119,15 @@ been written in the following way:
       main = Text.leftAligned (Text.height 60 (Text.bold (Text.italic (Text.color blue (Text.toText "Hello World")))))
 
 Let’s now analyze what the function does. It starts with a call to the
-`toText` function, which transforms a string into a value of type
+`fromString` function, which transforms a string into a value of type
 `Text`. It’s type looks like this:
 
-      toText : String -> Text
+      fromString : String -> Text
 
 The `->` arrow separates the function argument type from the result
-type. The `Text` value created by the `toText` function has certain
+type. The `Text` value created by the `fromString` function has certain
 default properties, like the color or font size. The function calls
-following the `toText` call modify those properties, creating new
+following the `fromString` call modify those properties, creating new
 `Text` values which differ in some respect from the old value.
 
 It is important to keep in mind, that Elm functions do not modify
@@ -136,7 +144,7 @@ text value. Here is it’s type:
 
 Notice how the `->` operator not only separates the result type of the
 function from its arguments, but the same operator is also used for
-separatting one argument from the other.
+separating one argument from the other.
 
 The `italic` and `bold` functions, as their names suggest, modify the
 text to be italic and bold. The call to the `height` function sets the
