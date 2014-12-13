@@ -177,16 +177,18 @@ same text that *[HelloWorld2.elm](HelloWorld2.elm)* does, but is written in a sl
 different way.
 
 % HelloWorld3.elm
+      import Color (..)
+      import Graphics.Element (..)
       import Text as T
 
 
-      makeBlue : Text -> Text
+      makeBlue : T.Text -> T.Text
       makeBlue = T.color blue
 
 
       main : Element
       main =
-          T.toText "Hello World"
+          T.fromString "Hello World"
               |> makeBlue
               |> T.italic
               |> T.bold

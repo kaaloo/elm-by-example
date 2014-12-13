@@ -1,13 +1,15 @@
+import Color (..)
+import Graphics.Element (..)
 import Text as T
 
 
-makeBlue : Text -> Text
+makeBlue : T.Text -> T.Text
 makeBlue = T.color blue
 
 
 main : Element
 main =
-    T.toText "Hello World"
+    T.fromString "Hello World"
         |> makeBlue
         |> T.italic
         |> T.bold
