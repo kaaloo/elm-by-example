@@ -221,7 +221,7 @@ The `Text` module is part of the Elm standard library. We have so far
 only used a small subset of its functions, but it contains more of
 them. If you want to verify what are the functions that a module
 provide, try to find the module on the
-[library.elm-lang.org](http://library.elm-lang.org/) web site.
+[package.elm-lang.org](http://package.elm-lang.org/) web site.
 
 Let us now turn to the last example in this chapter. We will display
 text specified using the
@@ -230,18 +230,20 @@ text specified using the
 small web page. You can see the program output
 [here](HelloWorld4.html).
 
-      main = [markdown|
+    import Markdown
 
-      # Hello World
+    main = Markdown.toElement """
 
-      This is the output of the *HelloWorld4.elm* program.
+    # Hello World
 
-      ---
+    This is the output of the *HelloWorld4.elm* program.
 
-<pre>  &#x7c;]</pre>
+    ---
+
+    """
 
 The body of the `main` function defines a markdown block delimited by
-the `[markdown|` and <code>&#x7c;]</code> tags. The line starting with
+the triple quotes. The line starting with
 a single hash `#` character is displayed as a header (using the `h1`
 HTML tag) line.  The words enclosed in asterisks are displayed in
 italic.  Finally, the three consecutive dash characters are showed as
