@@ -1,13 +1,17 @@
 module FibonacciBars where
 
 
+import Color (..)
 import Fibonacci (fibonacci, fibonacciWithIndexes)
-
+import Graphics.Collage (..)
+import Graphics.Element (..)
+import List
+import Text (asText)
 
 color n =
     let colors = [ red, orange, yellow, green, blue, purple, brown ]
     in
-        drop (n % (length colors)) colors |> head
+    List.drop (n % (List.length colors)) colors |> List.head
 
 
 bar (index, n) =
@@ -17,4 +21,4 @@ bar (index, n) =
     ]
 
 
-main = flow down <| map bar (fibonacciWithIndexes 10)
+main = flow down <| List.map bar (fibonacciWithIndexes 10)
